@@ -14,8 +14,11 @@ export function useStylist() {
   const [vibe, setVibe] = useState<Vibe>("Corporate Sleek");
   const [useLiveLocation, setUseLiveLocation] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
+  const [hasRequested, setHasRequested] = useState(false);
+
 
   const fetchStylist = async (params?: FetchParams) => {
+    setHasRequested(true);
     setLoading(true);
     setLocationError(null);
 
@@ -71,5 +74,7 @@ export function useStylist() {
     useLiveLocation,
     setUseLiveLocation,
     locationError,
+    hasRequested,
+
   };
 }

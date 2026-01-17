@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 export interface GlassCardProps {
@@ -12,13 +12,15 @@ export default function GlassCard({
   className = "",
   hover = true,
 }: GlassCardProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+      animate={prefersReducedMotion ? false : { opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       whileHover={
-        hover
+        hover && !prefersReducedMotion
           ? {
               scale: 1.03,
               boxShadow:
@@ -38,20 +40,13 @@ export default function GlassCard({
         ${className}
       `}
     >
-      {/* Soft inner highlight */}
-      <div
-        className="absolute inset-0 pointer-events-none  rounded-2xl bg-gradient-to-br from-white/10 via-transparent to-transparent"
-      />
+      {/* Inner highlight */}
+      <div className="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-br from-white/10 via-transparent to-transparent" />
 
       {/* Neon edge glow */}
-      <div
-        className="absolute pointer-events-none  -inset-px rounded-2xl bg-gradient-to-br from-neonBlue/40 via-electricViolet/20 to-transparent opacity-40"
-      />
+      <div className="absolute pointer-events-none -inset-px rounded-2xl bg-gradient-to-br from-neonBlue/40 via-electricViolet/20 to-transparent opacity-40" />
 
-      {/* Content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </motion.div>
   );
 }

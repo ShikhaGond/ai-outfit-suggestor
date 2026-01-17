@@ -25,3 +25,11 @@ html, body {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+@supports (padding: env(safe-area-inset-top)) {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

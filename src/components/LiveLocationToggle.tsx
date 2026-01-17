@@ -11,6 +11,8 @@ export function LiveLocationToggle({
 }: LiveLocationToggleProps) {
   return (
     <button
+      aria-pressed={enabled}
+      aria-label="Toggle live location"
       onClick={() => onToggle(!enabled)}
       className="flex items-center justify-between w-full gap-3 p-3 border rounded-xl bg-glass border-white/10"
     >
